@@ -8,7 +8,7 @@ $(document).ready(function(){
         mode: "clike",
         theme: "default",
         indentWithTabs: false,
-        readOnly: false,
+        readOnly: true,
         closeBrackets: true,
         closeTags: true,
         matchBrackets: true,

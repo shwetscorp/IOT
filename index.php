@@ -5,31 +5,77 @@ if(isset($_GET['submit'])){
 
 $input_pins = $_GET['input_pins'];
 $output_pins = $_GET['output_pins'];
-$sensor_id = $_GET['sensor_id'];
-$board_id = $_GET['board_id'];
-$smodel_id = $_GET['smodel_id'];
-$bmodel_id = $_GET['bmodel_id'];
+$sensor_id = $_GET['sensor'];
+$board_id = $_GET['board'];
+$smodel_id = $_GET['smodel'];
+$bmodel_id = $_GET['bmodel'];
+
+
+
+
+if($board_id=='1')
+$board_name='Arduino';
+if($sensor_id=='1')
+  $sensor_name='Button';
+if($sensor_id=='2')
+  $sensor_name='Bluetooth';
+if($sensor_id=='3')
+  $sensor_name='DHTtester_feb26';
+if($sensor_id=='4')
+  $sensor_name='Hall_Effect_sensor';
+if($sensor_id=='5')
+  $sensor_name='IR_distance_pna4602m';
+if($sensor_id=='6')
+  $sensor_name='IR_proximity_sensor_GP2Y0A21';
+if($sensor_id=='7')
+  $sensor_name='LM35';
+if($sensor_id=='8')
+  $sensor_name='Sonar_HC_SR04';
 
 $file_name="";
 $file="";
 
 
-if($board_id=='Arduino' && $sensor_id=='Button')
+if($board_id=='1' && $sensor_id=='1')
 {
 $file = "programs/Button/Button.php";
 $file_name="programs/Button/name.php";
 }
-if($board_id=='Arduino' && $sensor_id=='Sonar_HC_SR04')
+if($board_id=='1' && $sensor_id=='2')
+{
+$file = "programs/Bluetooth/bluetooth.php";
+$file_name="programs/Bluetooth/name.php";
+}
+if($board_id=='1' && $sensor_id=='3')
+{
+$file = "C:\wamp64\www\proj1\Programs\DHTtester_feb26/DHTtester_feb26.php";
+$file_name="programs/DHTtester_feb26/name.php";
+}
+if($board_id=='1' && $sensor_id=='4')
+{
+$file = "programs/Hall_Effect_sensor/Hall_Effect_sensor.php";
+$file_name="programs/Hall_Effect_sensor/name.php";
+}
+if($board_id=='1' && $sensor_id=='5')
+{
+$file = "programs/IR_distance_pna4602m/IR_distance_pna4602m.php";
+$file_name="programs/IR_distance_pna4602m/name.php";
+}
+if($board_id=='1' && $sensor_id=='6')
+{
+$file = "programs/IR_proximity_sensor_GP2Y0A21/IR_proximity_sensor_GP2Y0A21.php";
+$file_name="programs/IR_proximity_sensor_GP2Y0A21/name.php";
+}
+if($board_id=='1' && $sensor_id=='7')
+{
+$file = "programs/LM35/LM35.php";
+$file_name="programs/LM35/name.php";
+}
+if($board_id=='1' && $sensor_id=='8')
 {
 $file = "programs/SonarHCSR04/hcSR04.php";
 $file_name="programs/SonarHCSR04/name.php";
 }
-if($board_id=='Arduino' && $sensor_id=='Bluetooth')
-{
-$file = "programs/bluetooth/bluetooth.php";
-$file_name="programs/bluetooth/name.php";
-}
-
 
 
 
@@ -55,9 +101,13 @@ $file_name="programs/bluetooth/name.php";
           <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css' />
 		<script type="text/javascript" src="js/modernizr.custom.79639.js"></script> 
 		<noscript><link rel="stylesheet" type="text/css" href="css/noJS.css" /></noscript>
+    <script type="text/javascript" src="js/jquery-3.2.0.js"></script>
+    <script type="text/javascript" src="js/dropdown.js"></script>
+
 
  <!--Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
   <script>
   $(function () {
     $(document).on( 'scroll', function(){
@@ -72,6 +122,11 @@ $file_name="programs/bluetooth/name.php";
      }
    });
   });</script>
+
+
+<script>
+document.getElementById("form1").reset();
+</script>
   
 </head>
 
@@ -113,6 +168,13 @@ $file_name="programs/bluetooth/name.php";
       </div><!-- /.container-fluid -->
     </nav><!--nav bar closed-->
   </header>
+
+  <!------------>
+
+
+<!-------------->
+
+
   
   
 <div class="row">
@@ -126,91 +188,92 @@ $file_name="programs/bluetooth/name.php";
     </div>
     <div class="panel-body">
 
-    <form method="GET" action="">
+    <form method="GET" action="" name="form1" id="form1">
     <!--select category start-->
 	  <br/>
     <div class="form-group">
 	  <div class="row">
+    
+
+    <?php
+    //Include database configuration file
+    include('core/dbConfig.php');
+    
+    //Get all country data
+    $query = $db->query("SELECT * FROM boards WHERE status = 1 ORDER BY board_name ASC");
+    
+    //Count total number of rows
+    $rowCount = $query->num_rows;
+    ?>
     <div class="col-sm-6">
-    <label for="BOARD">Select Board :</label>
-    <select id="Board" name="board_id" placeholder="Select Board" class="form-control input-md" onchange="showUser(this.value)" required>
-       <?php if(isset($_GET['submit']))echo'<option>'.$board_id.'</option>'; ?>
-      <option value="">Select Board</option>
-      <option onclick="func(this)">Arduino</option><option onclick="func(this)">abc</option><option >def</option><option >ghi</option><option >jkl</option> 
+    <label>Select Board :</label>
+    <select id="board" name="board"  class="form-control input-md" onchange="showUser(this.value)" required>
+    <?php if(isset($_GET['submit']))echo'<option>'.$board_name.'</option>'; ?>
+        <option value="">Select Board</option>
+        <?php
+        if($rowCount > 0){
+            while($row = $query->fetch_assoc()){ 
+                echo '<option value="'.$row['board_id'].'">'.$row['board_name'].'</option>';
+            }
+        }else{
+            echo '<option value="">Board not available</option>';
+        }
+        ?>
     </select>
     </div>
-	  <div class="col-sm-6">
-	  <label for="BOARD">Select Model :</label>
-    <select id="Board" name="bmodel_id" placeholder="Select BModel" class="form-control input-md" onchange="showUser(this.value)" required>
+     <div class="col-sm-6">
+     <label>Select Model :</label>
+    <select id="bmodel" name="bmodel" class="form-control input-md" onchange="showUser(this.value)" required>
            <?php if(isset($_GET['submit']))echo'<option>'.$bmodel_id.'</option>'; ?>
-      <option value="">Select model</option>
-      <option onclick="func(this)">Uno</option><option onclick="func(this)">abc</option><option >def</option><option >ghi</option><option >jkl</option> 
-    </select>
-    </div></div>
-    </div>
+      <option value="">Select Board First</option></select>
+      </div>
+      </div></div>
+    
    
-      <div class="form-group">
+    <div class="form-group">
 	  <div class="row">
-	  <div class="col-sm-6">
-    <label for="Sensor">Select Sensor:</label>
-    <select id="Sensor" name="sensor_id" placeholder="Select Sensor" class="form-control input-md" onchange="showUser(this.value)" required>
-       <?php if(isset($_GET['submit']))echo'<option>'.$sensor_id.'</option>'; ?>
-    <option value="">Select Sensor:</option>
-    <option>Button</option><option>Bluetooth</option><option>Sonar_HC_SR04</option><option>ghi</option><option>jkl</option> </select>
+ 
+    <div class="col-sm-6">
+    <label>Select Sensor:</label>
+    <select id="sensor" name="sensor" placeholder="Select Sensor" class="form-control input-md" onchange="showUser(this.value)" required>
+       <?php if(isset($_GET['submit']))echo'<option>'.$sensor_name.'</option>'; ?>
+    <option value="">Select Board First</option>
+    </select>
     </div>
     <div class="col-sm-6">
-    <label for="Sensor">Select model:</label>
-    <select id="Smodel" name="smodel_id" placeholder="Select SModel" class="form-control input-md" onchange="showUser(this.value)" required>
+    <label>Select model:</label>
+    <select id="smodel" name="smodel" placeholder="Select SModel" class="form-control input-md" onchange="showUser(this.value)" required>
        <?php if(isset($_GET['submit']))echo'<option>'.$smodel_id.'</option>'; ?>
-    <option value="">Select Model</option>
-    <option>Button</option><option>abc</option><option>def</option><option>ghi</option><option>jkl</option> </select>
+    <option value="">Select Sensor First</option>
+    </select>
     </div></div></div>
    <!--select categories end-->
    
 
     <div class="form-group">
    	<div class="row">
+
 	  <div class="col-sm-6">
-    <label for="type">Input Pins :</label>
-    <select id="sel1" name="input_pins" placeholder="Input Pins" class="form-control input-md" required>
+    <label>Input Pins :</label>
+    <select id="input_pins" name="input_pins" placeholder="Input Pins" class="form-control input-md" onchange="showUser(this.value)" required>
     <?php if(isset($_GET['submit']))echo'<option>'.$input_pins.'</option>'; ?>
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option> 
-      <option>5</option>
-      <option>6</option>
-      <option>7</option>
-      <option>8</option>
-      <option>9</option>
-      <option>10</option>
-      <option>11</option>
-      <option>12</option>
-      <option>13</option>
+      <option value+"">Secect Board First</option>
    </select>
    </div>
 	 <div class="col-sm-6">
    <label for="type">Output Pins :</label>
-   <select id="sel2" name="output_pins" placeholder="Input Pins" class="form-control input-md" required>
-   <?php if(isset($_GET['submit']))echo'<option>'.$output_pins.'</option>'; ?>
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option> 
-      <option>5</option>
-      <option>6</option>
-      <option>7</option>
-      <option>8</option>
-      <option>9</option>
-      <option>10</option>
-      <option>11</option>
-      <option>12</option>
-      <option>13</option>
+   <select id="output_pins" name="output_pins" placeholder="Output Pins" class="form-control input-md" onchange="showUser(this.value)" required>
+    <?php if(isset($_GET['submit']))echo'<option>'.$output_pins.'</option>'; ?>
+      <option value+"">Secect Board First</option>
+   </select>
    </select>
    </div></div></div>
    <br/>
    <!--select categories end-->
-   <center><button type="submit" name="submit" class="btn btn-primary sub" style="background:#0D5B81; border-radius:0px; " onclick="showInput();">Submit</button></center>
+   <div class="col-sm-6">
+  <center><button type="submit" name="submit" class="form-control input-md" style="background:#0D5B81; border-radius:0px; " onclick="showInput();"><font color="white">Submit</font></button></center></div>
+  <div class="col-sm-6">
+   <center><button id="resetbtn" onclick="Reset()" class="form-control input-md" style="background:#0D5B81; border-radius:0px; "><font color="white">Reset</font></button></center></div>
    </form>
    <!-------------------------------------------------------------------------------------------------->
    <!--panel end--></div>
@@ -226,8 +289,10 @@ $file_name="programs/bluetooth/name.php";
     <div class="panel-body">
     <div><textarea class="codemirror-textarea" name="editor" id="inputTextToSave"><?php if(isset($_GET['submit']) && $file!='')include $file; ?></textarea>
      <input id="inputFileNameToSaveAs" type="hidden" value="<?php if(isset($_GET['submit']) && $file_name!='')include $file_name; ?>"></input>
-	 <button onclick="saveAsFile()">Save</button></td>
-
+     <div class="col-sm-6">
+	 <center><button class="form-control input-md" style="background:#0D5B81; border-radius:0px; " onclick="saveAsFile()"><font color="white">Save</font></button></td></center></div>
+   <div class="col-sm-6">
+   <center><button class="form-control input-md" style="background:#0D5B81; border-radius:0px; text-decoration-color: white;" id="readon"><font color="white">Edit</font></button></td></center></div>
     </div>
 	  </div>
 	  </div>
@@ -236,7 +301,7 @@ $file_name="programs/bluetooth/name.php";
  </div>
 
     <!-- javascript -->
-    <script type="text/javascript" src="js/jquery-3.2.0.js"></script>
+    
     <script type="text/javascript" src="js/savetext.js"></script>
     <script type="text/javascript" src="codemirror/lib/codemirror.js"></script> 
     <script type="text/javascript" src="codemirror/mode/clike/clike.js"></script>
