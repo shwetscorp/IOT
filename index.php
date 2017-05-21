@@ -147,6 +147,7 @@ $file_name="programs/PIR/name.php";
 <html>
   <head lang="en">
   <meta charset="UTF-8">
+  <title>IOT Sulutions</title>
   <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 
 <!--css-->
