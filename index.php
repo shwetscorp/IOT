@@ -5,6 +5,10 @@ if(isset($_GET['submit'])){
 
 $input_pins = $_GET['input_pins'];
 $output_pins = $_GET['output_pins'];
+$input_pins1 = $_GET['input_pins1'];
+$output_pins1 = $_GET['output_pins1'];
+$input_pins2 = $_GET['input_pins2'];
+$output_pins2 = $_GET['output_pins2'];
 $sensor_id = $_GET['sensor'];
 $board_id = $_GET['board'];
 $smodel_id = $_GET['smodel'];
@@ -15,6 +19,18 @@ $bmodel_id = $_GET['bmodel'];
 
 if($board_id=='1')
 $board_name='Arduino';
+
+if($bmodel_id=='1')
+$bmodel_name='UNO';
+if($bmodel_id=='2')
+$bmodel_name='Mega';
+if($bmodel_id=='3')
+$bmodel_name='Nano';
+if($bmodel_id=='4')
+$bmodel_name='Promini';
+if($bmodel_id=='5')
+$bmodel_name='Leonardo';
+
 if($sensor_id=='1')
   $sensor_name='Button';
 if($sensor_id=='2')
@@ -76,8 +92,43 @@ if($board_id=='1' && $sensor_id=='8')
 $file = "programs/SonarHCSR04/hcSR04.php";
 $file_name="programs/SonarHCSR04/name.php";
 }
+if($board_id=='1' && $sensor_id=='11')
+{
+$file = "programs/LCD16x2/LCD16x2.php";
+$file_name="programs/LCD16x2/name.php";
+}
+if($board_id=='1' && $sensor_id=='12')
+{
+  if($smodel_id=='25')
+  {
+   $file = "programs/Memsic2125/Memsic2125.php";
+   $file_name="programs/Memsic2125/name.php";
+  }
+  else
+  {
+   $file = "programs/Accelerometer_ADXL_/Accelerometer_ADXL_.php";
+   $file_name="programs/Accelerometer_ADXL_/name.php";
+  }
+}
+if($board_id=='1' && $sensor_id=='9')
+{
+   if($smodel_id=='2')
+   {
+    $file = "programs/MQ2_Smoke_Sensor/MQ2_Smoke_Sensor.php";
+    $file_name="programs/MQ2_Smoke_Sensor/name.php";
+   }
+   else if($smodel_id=='3')
+   {
+    $file = "programs/MQ3_Alcohol_sensor/MQ3_Alcohol_sensor.php";
+    $file_name="programs/MQ3_Alcohol_sensor/name.php";
+  }
+ }
 
-
+if($board_id=='1' && $sensor_id=='10')
+{
+$file = "programs/PIR/PIR.php";
+$file_name="programs/PIR/name.php";
+}
 
 }
 
@@ -157,11 +208,8 @@ document.getElementById("form1").reset();
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <li> <a  href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Home</a></li>
-            <li> <a  href="#"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;&nbsp;Infographs</a></li>
+            <li> <a  href="index.php"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Home</a></li>
 	    <li><a href="#"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;&nbsp;About&nbsp;Us</a>
-            </li>
-            <li><a href="#"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>&nbsp;My&nbsp;Dashboard</a>
             </li>
             
                      </div><!-- /.navbar-collapse -->
@@ -224,7 +272,7 @@ document.getElementById("form1").reset();
      <div class="col-sm-6">
      <label>Select Model :</label>
     <select id="bmodel" name="bmodel" class="form-control input-md" onchange="showUser(this.value)" required>
-           <?php if(isset($_GET['submit']))echo'<option>'.$bmodel_id.'</option>'; ?>
+           <?php if(isset($_GET['submit']))echo'<option>'.$bmodel_name.'</option>'; ?>
       <option value="">Select Board First</option></select>
       </div>
       </div></div>
@@ -257,18 +305,52 @@ document.getElementById("form1").reset();
     <label>Input Pins :</label>
     <select id="input_pins" name="input_pins" placeholder="Input Pins" class="form-control input-md" onchange="showUser(this.value)" required>
     <?php if(isset($_GET['submit']))echo'<option>'.$input_pins.'</option>'; ?>
-      <option value+"">Secect Board First</option>
+      <option value+"">Secect Board Model First</option>
    </select>
    </div>
 	 <div class="col-sm-6">
    <label for="type">Output Pins :</label>
-   <select id="output_pins" name="output_pins" placeholder="Output Pins" class="form-control input-md" onchange="showUser(this.value)" required>
+   <select id="output_pins" name="output_pins" placeholder="Output Pins" class="form-control input-md" onchange="validate()" required>
     <?php if(isset($_GET['submit']))echo'<option>'.$output_pins.'</option>'; ?>
-      <option value+"">Secect Board First</option>
+      <option value="">Secect Board Model First</option>
    </select>
    </select>
    </div></div></div>
-   <br/>
+
+
+    <div class="form-group">
+    <div class="row">
+
+    <div class="col-sm-6">
+    <select id="input_pins1" name="input_pins1" placeholder="Input Pins" class="form-control input-md" onchange="showUser(this.value)" required>
+    <?php if(isset($_GET['submit']))echo'<option>'.$input_pins1.'</option>'; ?>
+      <option value="0">0 (Not Selected)</option>
+   </select>
+   </div>
+   <div class="col-sm-6">
+   <select id="output_pins1" name="output_pins1" placeholder="Output Pins" class="form-control input-md" onchange="showUser(this.value)" required>
+    <?php if(isset($_GET['submit']))echo'<option>'.$output_pins1.'</option>'; ?>
+      <option value="0">0 (Not Selected)</option>
+   </select>
+   </div></div></div>
+
+
+    <div class="form-group">
+    <div class="row">
+
+    <div class="col-sm-6">
+    <select id="input_pins2" name="input_pins2" placeholder="Input Pins" class="form-control input-md" onchange="showUser(this.value)" required>
+    <?php if(isset($_GET['submit']))echo'<option>'.$input_pins2.'</option>'; ?>
+      <option value="0">0 (Not Selected)</option>
+   </select>
+   </div>
+   <div class="col-sm-6">
+   <select id="output_pins2" name="output_pins2" placeholder="Output Pins" class="form-control input-md" onchange="showUser(this.value)" required>
+    <?php if(isset($_GET['submit']))echo'<option>'.$output_pins2.'</option>'; ?>
+      <option value="0">0 (Not Selected)</option>
+   </select>
+   </div></div></div>
+   
    <!--select categories end-->
    <div class="col-sm-6">
   <center><button type="submit" name="submit" class="form-control input-md" style="background:#0D5B81; border-radius:0px; " onclick="showInput();"><font color="white">Submit</font></button></center></div>
@@ -290,8 +372,12 @@ document.getElementById("form1").reset();
     <div><textarea class="codemirror-textarea" name="editor" id="inputTextToSave"><?php if(isset($_GET['submit']) && $file!='')include $file; ?></textarea>
      <input id="inputFileNameToSaveAs" type="hidden" value="<?php if(isset($_GET['submit']) && $file_name!='')include $file_name; ?>"></input>
      <div class="col-sm-6">
+     <br/>
+     <br/>
 	 <center><button class="form-control input-md" style="background:#0D5B81; border-radius:0px; " onclick="saveAsFile()"><font color="white">Save</font></button></td></center></div>
    <div class="col-sm-6">
+     <br/>
+     <br/>
    <center><button class="form-control input-md" style="background:#0D5B81; border-radius:0px; text-decoration-color: white;" id="readon"><font color="white">Edit</font></button></td></center></div>
     </div>
 	  </div>
@@ -321,8 +407,5 @@ document.getElementById("form1").reset();
     <script type="text/javascript" src="codemirror/addon/hint/show-hint.js"></script>
     <script type="text/javascript" src="codemirror/addon/hint/anyword-hint.js"></script>
     <script type="text/javascript" src="codemirror/addon/hint/html-hint.js"></script>
-
-
-
 </body>
 </html>

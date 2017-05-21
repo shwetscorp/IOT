@@ -13,7 +13,7 @@ if(isset($_POST["board_id"]) && !empty($_POST["board_id"])){
     if($rowCount > 0){
         echo '<option value="">Select Model</option>';
         while($row = $query->fetch_assoc()){ 
-            echo '<option value="'.$row['bmodel_name'].'">'.$row['bmodel_name'].'</option>';
+            echo '<option value="'.$row['bmodel_id'].'">'.$row['bmodel_name'].'</option>';
         }
     }else{
         echo '<option value="">Model not available</option>';

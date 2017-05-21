@@ -11,7 +11,6 @@ if(isset($_POST["bmodel_id"]) && !empty($_POST["bmodel_id"])){
     
     //Display states list
     if($rowCount > 0){
-        echo '<option value="">Select Input Pin</option>';
         while($row = $query->fetch_assoc()){ 
             echo '<option value="'.$row['input_pin'].'">'.$row['input_pin'].'</option>';
         }

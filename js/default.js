@@ -8,7 +8,6 @@ $(document).ready(function(){
         mode: "clike",
         theme: "default",
         indentWithTabs: false,
-        readOnly: true,
         closeBrackets: true,
         closeTags: true,
         matchBrackets: true,
@@ -16,6 +15,7 @@ $(document).ready(function(){
         trailingSpace: true,
         enterMode: "keep",
         tabMode: "shift",
+        readOnly: true
     };
 
     editor = CodeMirror.fromTextArea(code, config);

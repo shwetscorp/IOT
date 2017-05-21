@@ -37,38 +37,78 @@ $(document).ready(function(){
     });
 });
 $(document).ready(function(){
-    $('#board').on('change',function(){
-        var boardID = $(this).val();
-        if(boardID){
+    $('#bmodel').on('change',function(){
+        var bmodelID = $(this).val();
+        if(bmodelID){
             $.ajax({
 
                 type:'POST',
                 url:'ajaxData2.php',
-                data:'board_id='+boardID,
+                data:'bmodel_id='+bmodelID,
                 success:function(html){
                     $('#input_pins').html(html);
                 }
             }); 
         }else{
-            $('#input_pins').html('<option value="">Select board first</option>');  
+            $('#input_pins').html('<option value="">Select board model first</option>');  
         }
     });
 });
 $(document).ready(function(){
-    $('#board').on('change',function(){
-        var boardID = $(this).val();
-        if(boardID){
+    $('#bmodel').on('change',function(){
+        var bmodelID = $(this).val();
+        if(bmodelID){
+            $.ajax({
+
+                type:'POST',
+                url:'ajaxData4.php',
+                data:'bmodel_id='+bmodelID,
+                success:function(html){
+                     $('#input_pins1').html(html);
+                      $('#input_pins2').html(html);
+                }
+            }); 
+        }else{
+            $('#input_pins1').html('<option value="">Select board model first</option>');  
+            $('#input_pins2').html('<option value="">Select board model first</option>'); 
+        }
+    });
+});
+$(document).ready(function(){
+    $('#bmodel').on('change',function(){
+        var bmodelID = $(this).val();
+        if(bmodelID){
             $.ajax({
 
                 type:'POST',
                 url:'ajaxData3.php',
-                data:'board_id='+boardID,
+                data:'bmodel_id='+bmodelID,
                 success:function(html){
                     $('#output_pins').html(html);
                 }
             }); 
         }else{
-            $('#output_pins').html('<option value="">Select board first</option>');  
+            $('#output_pins').html('<option value="">Select board model first</option>');  
+        }
+    });
+});
+$(document).ready(function(){
+    $('#bmodel').on('change',function(){
+        var bmodelID = $(this).val();
+        if(bmodelID){
+            $.ajax({
+
+                type:'POST',
+                url:'ajaxData4.php',
+                data:'bmodel_id='+bmodelID,
+                success:function(html){
+                    $('#output_pins1').html(html);
+                    $('#output_pins2').html(html);
+                }
+            }); 
+        }else{
+            $('#output_pins1').html('<option value="">Select board model first</option>');
+            $('#output_pins2').html('<option value="">Select board model first</option>');   
         }
     });
 });
