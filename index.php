@@ -46,7 +46,15 @@ if($sensor_id=='6')
 if($sensor_id=='7')
   $sensor_name='LM35';
 if($sensor_id=='8')
-  $sensor_name='Sonar_HC_SR04';
+  $sensor_name='Ultrasonic Sensor';
+if($sensor_id=='9')
+  $sensor_name='MQ Series';
+if($sensor_id=='10')
+  $sensor_name='PIR Sensor';
+if($sensor_id=='11')
+  $sensor_name='LCD16x2';
+if($sensor_id=='12')
+  $sensor_name='ALDX series';
 
 $file_name="";
 $file="";
@@ -159,6 +167,12 @@ $file_name="programs/PIR/name.php";
  <!--Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+
+
+<script>
+document.getElementById("form1").reset();
+</script>
+
   <script>
   $(function () {
     $(document).on( 'scroll', function(){
@@ -173,15 +187,37 @@ $file_name="programs/PIR/name.php";
      }
    });
   });</script>
-
-
-<script>
-document.getElementById("form1").reset();
-</script>
   
 </head>
 
 <body>
+
+<script>
+function showUser(str) {
+  if (str == "") {
+    document.getElementById("txtHint").innerHTML = "";
+    return;
+  }
+  else {
+    if (window.XMLHttpRequest) {
+// code for IE7+, Firefox, Chrome, Opera, Safari
+xmlhttp = new XMLHttpRequest();
+}
+else {
+// code for IE6, IE5
+xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+}
+xmlhttp.onreadystatechange = function() {
+  if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+    document.getElementById("txtHint1").innerHTML = xmlhttp.responseText;
+  }
+}
+xmlhttp.open("GET","getuser.php?q="+str,true);
+xmlhttp.send();
+}
+}
+</script>
 
 
 <header>
@@ -362,6 +398,7 @@ document.getElementById("form1").reset();
    </div></div>
    </div></div>
 
+
   <div class="col-sm-6">
 
   <div class="tab-content">
@@ -384,7 +421,7 @@ document.getElementById("form1").reset();
 	  </div>
 	 </div></div>
 	
- </div>
+ </div></div>
 
     <!-- javascript -->
     
@@ -407,5 +444,30 @@ document.getElementById("form1").reset();
     <script type="text/javascript" src="codemirror/addon/hint/show-hint.js"></script>
     <script type="text/javascript" src="codemirror/addon/hint/anyword-hint.js"></script>
     <script type="text/javascript" src="codemirror/addon/hint/html-hint.js"></script>
+    <br/>
+    <footer class="page-footer" style="background:#202020;">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <a href="index.php"><h4 class="title" style="color:#8f40a5; font-size: 30px">IOT Solutions</h4></a>
+        </div>
+         <div class="col-md-6">
+            <h4 class="title" style="color:#8f40a5; font-size: 15px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="white">Developers:</font> &nbsp;&nbsp;&nbsp;Shwetank Yadav,&nbsp; Ravi Narayan Mishra</h4> 
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        <div class="row">
+          <div ><center>© 2017 Copyright TCS RI</center>
+            
+          </div>
+          <div class="col-md-3 offset-3">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
