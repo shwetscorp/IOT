@@ -1,8 +1,8 @@
 <?php
 //db details
 $dbHost = 'localhost';
-$dbUsername = 'Shwetank';
-$dbPassword = 'Shwet@scorp007';
+$dbUsername = 'root';
+$dbPassword = '';
 $dbName = 'iot_db';
 
 //Connect and select the database
