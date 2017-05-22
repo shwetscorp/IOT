@@ -107,12 +107,12 @@ $file_name="programs/LCD16x2/name.php";
 }
 if($board_id=='1' && $sensor_id=='12')
 {
-  if($smodel_id=='25')
+  if($smodel_id=='Memsic2125')
   {
    $file = "programs/Memsic2125/Memsic2125.php";
    $file_name="programs/Memsic2125/name.php";
   }
-  else
+  else if($smodel_id!='Memsic2125')
   {
    $file = "programs/Accelerometer_ADXL_/Accelerometer_ADXL_.php";
    $file_name="programs/Accelerometer_ADXL_/name.php";
@@ -120,12 +120,12 @@ if($board_id=='1' && $sensor_id=='12')
 }
 if($board_id=='1' && $sensor_id=='9')
 {
-   if($smodel_id=='2')
+   if($smodel_id=='MQ2_GCG')
    {
     $file = "programs/MQ2_Smoke_Sensor/MQ2_Smoke_Sensor.php";
     $file_name="programs/MQ2_Smoke_Sensor/name.php";
    }
-   else if($smodel_id=='3')
+   else if($smodel_id=='MQ3_A')
    {
     $file = "programs/MQ3_Alcohol_sensor/MQ3_Alcohol_sensor.php";
     $file_name="programs/MQ3_Alcohol_sensor/name.php";
@@ -148,6 +148,7 @@ $file_name="programs/PIR/name.php";
   <head lang="en">
   <meta charset="UTF-8">
   <title>IOT Sulutions</title>
+  <link rel="shortcut icon" type="image/x-icon" href="appstore.ico" />
   <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 
 <!--css-->
@@ -168,7 +169,23 @@ $file_name="programs/PIR/name.php";
  <!--Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+    <!-- javascript -->
+    
+    <script type="text/javascript" src="js/savetext.js"></script>
+    <script type="text/javascript" src="codemirror/lib/codemirror.js"></script> 
+    <script type="text/javascript" src="codemirror/mode/clike/clike.js"></script>
+    <script type="text/javascript" src="js/default.js"></script>
 
+    <!-- addon script -->
+    <script type="text/javascript" src="codemirror/addon/edit/closebrackets.js"></script>
+    <script type="text/javascript" src="codemirror/addon/edit/closetags.js"></script>
+    <script type="text/javascript" src="codemirror/addon/edit/matchbrakets.js"></script>
+    <script type="text/javascript" src="codemirror/addon/edit/matchtags.js"></script>
+    <script type="text/javascript" src="codemirror/addon/edit/continuelist.js"></script>
+    <script type="text/javascript" src="codemirror/addon/edit/trailingspace.js"></script>
+    <script type="text/javascript" src="codemirror/addon/hint/show-hint.js"></script>
+    <script type="text/javascript" src="codemirror/addon/hint/anyword-hint.js"></script>
+    <script type="text/javascript" src="codemirror/addon/hint/html-hint.js"></script>
 
 <script>
 document.getElementById("form1").reset();
@@ -424,27 +441,7 @@ xmlhttp.send();
 	
  </div></div>
 
-    <!-- javascript -->
-    
-    <script type="text/javascript" src="js/savetext.js"></script>
-    <script type="text/javascript" src="codemirror/lib/codemirror.js"></script> 
-    <script type="text/javascript" src="codemirror/mode/clike/clike.js"></script>
-    <script type="text/javascript" src="codemirror/mode/cmake/cmake.js"></script>
-    <script type="text/javascript" src="codemirror/mode/css/css.js"></script>
-    <script type="text/javascript" src="codemirror/mode/javascript/javascript.js"></script>
-    <script type="text/javascript" src="codemirror/mode/xml/xml.js"></script>
-    <script type="text/javascript" src="js/default.js"></script>
 
-    <!-- addon script -->
-    <script type="text/javascript" src="codemirror/addon/edit/closebrackets.js"></script>
-    <script type="text/javascript" src="codemirror/addon/edit/closetags.js"></script>
-    <script type="text/javascript" src="codemirror/addon/edit/matchbrakets.js"></script>
-    <script type="text/javascript" src="codemirror/addon/edit/matchtags.js"></script>
-    <script type="text/javascript" src="codemirror/addon/edit/continuelist.js"></script>
-    <script type="text/javascript" src="codemirror/addon/edit/trailingspace.js"></script>
-    <script type="text/javascript" src="codemirror/addon/hint/show-hint.js"></script>
-    <script type="text/javascript" src="codemirror/addon/hint/anyword-hint.js"></script>
-    <script type="text/javascript" src="codemirror/addon/hint/html-hint.js"></script>
     <br/>
     <footer class="page-footer" style="background:#202020;">
       <div class="container">
@@ -460,7 +457,7 @@ xmlhttp.send();
     <div class="footer-copyright">
       <div class="container">
         <div class="row">
-          <div ><center>© 2017 Copyright TCS RI</center>
+          <div ><center>© 2017 TCS RI</center>
             
           </div>
           <div class="col-md-3 offset-3">
