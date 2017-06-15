@@ -3,12 +3,24 @@
 
 if(isset($_GET['submit'])){
 
-$input_pins = $_GET['input_pins'];
-$output_pins = $_GET['output_pins'];
-$input_pins1 = $_GET['input_pins1'];
-$output_pins1 = $_GET['output_pins1'];
-$input_pins2 = $_GET['input_pins2'];
-$output_pins2 = $_GET['output_pins2'];
+$input_pins_o= $_GET['input_pins'];
+$input_pin_ar=explode('~',$input_pins_o);
+$input_pins=$input_pin_ar[0];
+$output_pins_o = $_GET['output_pins'];
+$output_pin_ar=explode('~',$output_pins_o);
+$output_pins=$output_pin_ar[0];
+$input_pins1_o = $_GET['input_pins1'];
+$input_pin1_ar=explode('~',$input_pins1_o);
+$input_pins1=$input_pin1_ar[0];
+$output_pins1_o = $_GET['output_pins1'];
+$output_pin1_ar=explode('~',$output_pins1_o);
+$output_pins1=$output_pin1_ar[0];
+$input_pins2_o = $_GET['input_pins2'];
+$input_pin2_ar=explode('~',$input_pins2_o);
+$input_pins2=$input_pin2_ar[0];
+$output_pins2_o = $_GET['output_pins2'];
+$output_pin2_ar=explode('~',$output_pins2_o);
+$output_pins2=$output_pin2_ar[0];
 $sensor_id = $_GET['sensor'];
 $board_id = $_GET['board'];
 $smodel_id = $_GET['smodel'];
@@ -237,7 +249,14 @@ xmlhttp.send();
 }
 </script>
 
-
+<script type="text/javascript">
+function ck()
+{
+    //ft.inputTextToSave.value += ft.ck.value;
+    ft.getElementById('inputTextToSave').value += ft.getElementById('ck').value;
+    //ft.getElementById('inputTextToSave').innerHTML += ft.getElementById('ck').value;
+}
+</script>
 <header>
     <div class="logo">
       <div class="row">
@@ -277,7 +296,7 @@ xmlhttp.send();
 <!-------------->
 
 
-  
+
   
 <div class="row">
   <div class="col-sm-6">
@@ -358,14 +377,14 @@ xmlhttp.send();
 	  <div class="col-sm-6">
     <label>Input Pins :</label>
     <select id="input_pins" name="input_pins" placeholder="Input Pins" class="form-control input-md" onchange="showUser(this.value)" required>
-    <?php if(isset($_GET['submit']))echo'<option>'.$input_pins.'</option>'; ?>
+    <?php if(isset($_GET['submit']))echo'<option>'.$input_pins_o.'</option>'; ?>
       <option value+"">Secect Board Model First</option>
    </select>
    </div>
 	 <div class="col-sm-6">
    <label for="type">Output Pins :</label>
    <select id="output_pins" name="output_pins" placeholder="Output Pins" class="form-control input-md" onchange="validate()" required>
-    <?php if(isset($_GET['submit']))echo'<option>'.$output_pins.'</option>'; ?>
+    <?php if(isset($_GET['submit']))echo'<option>'.$output_pins_o.'</option>'; ?>
       <option value="">Secect Board Model First</option>
    </select>
    </select>
@@ -377,13 +396,13 @@ xmlhttp.send();
 
     <div class="col-sm-6">
     <select id="input_pins1" name="input_pins1" placeholder="Input Pins" class="form-control input-md" onchange="showUser(this.value)" required>
-    <?php if(isset($_GET['submit']))echo'<option>'.$input_pins1.'</option>'; ?>
+    <?php if(isset($_GET['submit']))echo'<option>'.$input_pins1_o.'</option>'; ?>
       <option value="0">0 (Not Selected)</option>
    </select>
    </div>
    <div class="col-sm-6">
    <select id="output_pins1" name="output_pins1" placeholder="Output Pins" class="form-control input-md" onchange="showUser(this.value)" required>
-    <?php if(isset($_GET['submit']))echo'<option>'.$output_pins1.'</option>'; ?>
+    <?php if(isset($_GET['submit']))echo'<option>'.$output_pins1_o.'</option>'; ?>
       <option value="0">0 (Not Selected)</option>
    </select>
    </div></div></div>
@@ -394,13 +413,13 @@ xmlhttp.send();
 
     <div class="col-sm-6">
     <select id="input_pins2" name="input_pins2" placeholder="Input Pins" class="form-control input-md" onchange="showUser(this.value)" required>
-    <?php if(isset($_GET['submit']))echo'<option>'.$input_pins2.'</option>'; ?>
+    <?php if(isset($_GET['submit']))echo'<option>'.$input_pins2_o.'</option>'; ?>
       <option value="0">0 (Not Selected)</option>
    </select>
    </div>
    <div class="col-sm-6">
    <select id="output_pins2" name="output_pins2" placeholder="Output Pins" class="form-control input-md" onchange="showUser(this.value)" required>
-    <?php if(isset($_GET['submit']))echo'<option>'.$output_pins2.'</option>'; ?>
+    <?php if(isset($_GET['submit']))echo'<option>'.$output_pins2_o.'</option>'; ?>
       <option value="0">0 (Not Selected)</option>
    </select>
    </div></div></div>
@@ -424,7 +443,7 @@ xmlhttp.send();
     <div class="panel panel-default" >
 	  <div class="panel-heading"><center><p class="title2"><span class="glyphicon glyphicon-align-left" aria-hidden="true" style="color:#000000;"></span><font style="color:#000000">&nbsp;&nbsp;CODE</font></p></center></div>
     <div class="panel-body">
-    <div><textarea class="codemirror-textarea" name="editor" id="inputTextToSave"><?php if(isset($_GET['submit']) && $file!='')include $file; ?></textarea>
+    <div><textarea class="codemirror-textarea" name="editor" id="inputTextToSave"><?php if(isset($_GET['submit']) && $file!='')include $file; ?>//your code will be shown here...</textarea>
      <input id="inputFileNameToSaveAs" type="hidden" value="<?php if(isset($_GET['submit']) && $file_name!='')include $file_name; ?>"></input>
      <div class="col-sm-6">
      <br/>
