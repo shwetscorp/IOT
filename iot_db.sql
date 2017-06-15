@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2017 at 03:57 PM
+-- Generation Time: Jun 15, 2017 at 12:49 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -491,7 +491,7 @@ INSERT INTO `smodels` (`smodel_id`, `smodel_name`, `sensor_id`, `status`) VALUES
 (31, 'LM35', 7, 1),
 (32, 'RTD PT 100', 7, 1),
 (33, 'HC-SR04', 8, 1),
-(25, 'Memsic2125', 12, 1);
+(34, 'Memsic2125', 12, 1);
 
 --
 -- Indexes for dumped tables
